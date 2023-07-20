@@ -19,7 +19,7 @@ contract Challenge1Test is Test {
    
     address public exploiter = makeAddr("exploiter");
     address public whitehat = makeAddr("whitehat");
-
+    uint256 public constant HACK_AMOUNT=1000 ether;
     function setUp() public {
         mETH = new MagicETH();
 
@@ -42,7 +42,7 @@ contract Challenge1Test is Test {
         Hack hack=new Hack(address(mETH),exploiter,whitehat);
         hack.hack();
         console.log("WhiteHat Balance:",mETH.balanceOf(whitehat));
-        mETH.withdraw(1000 ether);
+        mETH.withdraw(HACK_AMOUNT);
         //==================================================//
         vm.stopPrank();
 
